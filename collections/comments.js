@@ -23,6 +23,6 @@ Meteor.methods({
 
 		comment._id =  Comments.insert(comment);
 		createCommentNotification(comment);
-		return coment._id;
+		return comment._id;
 	}
 });
