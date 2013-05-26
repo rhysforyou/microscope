@@ -1,9 +1,10 @@
 Comments = new Meteor.Collection('comments');
+
 Meteor.methods({
 	comment: function(commentAttributes) {
 		var user = Meteor.user();
 		var post = Posts.findOne(commentAttributes.postId);
-		
+
 		// ensure the user is logged in
 		if (!user)
 			throw new Meteor.error(401, "You need to login to make comments");
@@ -20,6 +21,8 @@ Meteor.methods({
 
 		Posts.update(comment.postId, {$inc: {commentsCount: 1}});
 
-		return Comments.insert(comment);
+		comment._id =  Comments.insert(comment);
+		createCommentNotification(comment);
+		return coment._id;
 	}
 });
